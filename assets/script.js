@@ -1,3 +1,7 @@
+// variable pour le diaporama
+let compteur = 0
+
+// Tableau des images
 const slides = [
 	{
 		"image":"slide1.jpg",
@@ -16,3 +20,22 @@ const slides = [
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
 ]
+
+
+
+// on géré le défilement avec la flèche gauche
+	let arrowLeft = document.querySelector (".arrow_left")
+	arrowLeft.addEventListener ("click", () => {
+		console.log ("Vous avez cliquez sur la flèche gauche")
+	})
+
+	function slideNext () {
+		compteur++
+
+	}
+
+// on géré le défilement avec la flèche droite
+	let arrowRight = document.querySelector (".arrow_right")
+	arrowLeft.addEventListener ("click", () => {
+		console.log ("Vous avez cliquez sur la flèche droite")
+	})
