@@ -24,29 +24,35 @@ const arrowRight = document.querySelector (".arrow_right")
 const imageBanner = document.querySelector(".banner-img")
 const subtitle = document.querySelector("#banner > p")
 const containerDots = document.querySelector(".dots")
+let counter = 0
+
 
 //création des dots dans la page HTML en fonction du nombre de page
 for (let i = 0; i < slides.length; i += 1) {
 	const dot = document.createElement ("div")
 	dot.className = "dot"
-	dots.appendChild ("dot_image")
+	dots.appendChild ("dot_selected")
 }
 
 const dots = document.querySelectorAll("dot")
-containerDots [0].classList.add("dot_image")
+containerDots [0].classList.add("dot_selected")
 
 // on géré le défilement avec la flèche gauche
-
-function goToLeft () {
-	
-}
-	arrowLeft.addEventListener ("click", (goToLeft) {
-		console.log ("Vous avez cliquez sur la flèche gauche")
+	arrowLeft.addEventListener("click", ()=> {
+		const newCounter = (counter === 0) ? (slides.length - 1) : (counter - 1)
+		updateCarrouselUI(counter, newCounter)
 	})
 
 // on géré le défilement avec la flèche droite
-	arrowLeft.addEventListener ("click", (goToright) {
-		console.log ("Vous avez cliquez sur la flèche droite")
+	arrowRight.addEventListener("click", ()=> {
+		const newCounter = (counter < slides.length - 1) ? (counter + 1) : 0
 	})
 
 // on gère le défilement des slides avec une fonction de compteur
+function updateCarrouselUI (oldCounter, newCounter) {
+	counter = newCounter;
+	dots[oldCounter].classList.remove('dot_selected');
+	imageBanner.src = "./assets/images/slideshow/" + slides[newCounter].image;
+	text.innerHTML = slides[newCounter].tagLine;
+	dots[newCounter].classList.add('dot_selected');
+}
