@@ -20,7 +20,7 @@ const slides = [
 
 // variable pour le diaporama
 const arrowRight = document.querySelector(".arrow_right");
-const arrowLeft = document.querySelector ("arrow_left");
+const arrowLeft = document.querySelector (".arrow_left");
 const imageBanner = document.querySelector(".banner-img");
 const subtitle = document.querySelector("#banner p");
 const dots = document.querySelector(".dots");
