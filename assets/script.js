@@ -18,41 +18,48 @@ const slides = [
 	}
 ]
 
-// variable pour le diaporama
+// déclaration des variables pour le diaporama
 const arrowRight = document.querySelector(".arrow_right");
-const arrowLeft = document.querySelector (".arrow_left");
+const arrowLeft = document.querySelector(".arrow_left");
 const imageBanner = document.querySelector(".banner-img");
 const subtitle = document.querySelector("#banner p");
 const dots = document.querySelector(".dots");
 let slidesIndex = 0;
 
 //création des dots dans la page HTML en fonction du nombre de page
+const fragment = document.createDocumentFragment()
 for (let i = 0; i < slides.length; i++) {
-	dots.innerHTML = dots.innerHTML + "<div class='dot'></div>";
+	const dot = document.createElement("div")
+	dot.classList.add("dot")
+	fragment.appendChild(dot)
+	if (i === 0){
+		dot.classList.add("dot_selected")
+	}
 }
+dots.appendChild(fragment);
 
-let dot = document.querySelectorAll(".dot");
+const dot = document.querySelectorAll(".dot");
 
-// on géré le défilement flèche droite
-arrowRight.addEventListener("click", () => {
-	dot[slidesIndex].classList.remove("dot_selected");
-	slidesIndex++;
-	if (slidesIndex === slides.length) {
-	  slidesIndex = 0;
-	}
-	imageBanner.src = "./assets/images/slideshow/" + slides[slidesIndex].image;
-	subtitle.innerHTML = slides[slidesIndex].tagLine;
-	dot[slidesIndex].classList.add("dot_selected");
-  });
+const arrows = document.querySelectorAll(".arrow");
 
-  // on géré le défilement flèche gauche
-arrowLeft.addEventListener("click", () => {
-	dot[slidesIndex].classList.remove("dot_selected");
-	slidesIndex--;
-	if (slidesIndex === -1) {
-	  slidesIndex = slides.length - 1;
-	}
-	imageBanner.src = "./assets/images/slideshow/" + slides[slidesIndex].image;
-	subtitle.innerHTML = slides[slidesIndex].tagLine;
-	dot[slidesIndex].classList.add("dot_selected");
-  });
+for (const arrow of arrows) {
+	arrow.addEventListener("click", (e) => {
+		const clickedArrow = e.target
+		const selectedSide = clickedArrow.dataset.side
+		dot[slidesIndex].classList.remove("dot_selected");
+		if (selectedSide == "left") {
+			slidesIndex--;
+			if (slidesIndex === -1) {
+				slidesIndex = slides.length - 1;
+			}
+		} else {
+			slidesIndex++;
+			if (slidesIndex === slides.length) {
+				slidesIndex = 0;
+			}
+		}
+		imageBanner.src = "./assets/images/slideshow/" + slides[slidesIndex].image;
+		subtitle.innerHTML = slides[slidesIndex].tagLine;
+		dot[slidesIndex].classList.add("dot_selected");
+	})
+}
